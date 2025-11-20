@@ -39,7 +39,7 @@ export default function SignInPage() {
       if (result?.error) {
         setError(result.error)
       } else {
-        const from = searchParams?.get('from') || '/'
+        const from = searchParams?.get('from') || '/dashboard'
         router.push(from)
         router.refresh()
       }

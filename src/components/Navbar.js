@@ -5,24 +5,29 @@ import { useSession, signOut } from 'next-auth/react'
 import styles from './Navbar.module.css'
 
 export default function Navbar() {
-  const { data: session } = useSession()
+  const { data: session, status } = useSession()
 
   return (
     <nav className={styles.navbar}>
       <div className={styles.container}>
-        <Link href="/" className={styles.logo}>
-          📚 Reading Tracker
+        <Link href={session ? "/dashboard" : "/"} className={styles.logo}>
+          📖 Reading Tracker
         </Link>
 
         <div className={styles.navLinks}>
-          {session ? (
+          {status === 'loading' ? (
+            <span className={styles.email}>Loading...</span>
+          ) : session ? (
             <>
+              <Link href="/dashboard" className={styles.link}>
+                My Books
+              </Link>
               <Link href="/add-book" className={styles.link}>
-                Add a Book
+                Add Book
               </Link>
               <span className={styles.email}>{session.user?.email}</span>
               <button
-                onClick={() => signOut({ callbackUrl: '/auth/signin' })}
+                onClick={() => signOut({ callbackUrl: '/' })}
                 className={styles.signOutButton}
               >
                 Sign Out

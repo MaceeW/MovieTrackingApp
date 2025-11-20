@@ -34,7 +34,6 @@ export async function GET(request) {
   }
 }
 
-// POST - Create a new book
 export async function POST(request) {
   try {
     const session = await getServerSession(authOptions)
@@ -49,7 +48,6 @@ export async function POST(request) {
     const body = await request.json()
     const { title, author, status, notes, cover_url } = body
 
-    // Validation
     if (!title || !author) {
       return NextResponse.json(
         { error: 'Title and author are required' },

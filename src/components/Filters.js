@@ -1,36 +1,47 @@
 'use client'
 
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useTransition, useCallback } from 'react'
 import styles from './Filters.module.css'
 
 export default function Filters() {
   const router = useRouter()
   const searchParams = useSearchParams()
+  const [isPending, startTransition] = useTransition()
   const [search, setSearch] = useState(searchParams?.get('search') || '')
   const [status, setStatus] = useState(searchParams?.get('status') || 'all')
 
-  useEffect(() => {
+  const updateURL = (searchValue, statusValue) => {
     const params = new URLSearchParams()
     
-    if (search) {
-      params.set('search', search)
+    if (searchValue) {
+      params.set('search', searchValue)
     }
     
-    if (status && status !== 'all') {
-      params.set('status', status)
+    if (statusValue && statusValue !== 'all') {
+      params.set('status', statusValue)
     }
 
     const queryString = params.toString()
-    router.push(queryString ? `/?${queryString}` : '/')
-  }, [search, status, router])
+    const newUrl = queryString ? `/dashboard?${queryString}` : '/dashboard'
+    
+    window.location.href = newUrl
+  }
 
   const handleSearchChange = (e) => {
     setSearch(e.target.value)
   }
 
+  const handleSearchKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      updateURL(search, status)
+    }
+  }
+
   const handleStatusChange = (e) => {
-    setStatus(e.target.value)
+    const newStatus = e.target.value
+    setStatus(newStatus)
+    updateURL(search, newStatus)
   }
 
   return (
@@ -44,6 +55,7 @@ export default function Filters() {
           id="search"
           value={search}
           onChange={handleSearchChange}
+          onKeyPress={handleSearchKeyPress}
           placeholder="Search by title or author..."
           className={styles.searchInput}
         />

@@ -2,6 +2,7 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '@/auth'
 import { prisma } from '@/lib/prisma'
 import { notFound, redirect } from 'next/navigation'
+import Image from 'next/image'
 import BookActions from '@/components/BookActions'
 import styles from './Book.module.css'
 
@@ -28,7 +29,6 @@ export default async function BookPage({ params }) {
     notFound()
   }
 
-  // Check ownership
   if (book.userId !== session.user.id) {
     redirect('/')
   }
@@ -42,13 +42,21 @@ export default async function BookPage({ params }) {
   return (
     <div className={styles.container}>
       <div className={styles.bookCard}>
-        {book.cover_url && (
+        {book.cover_url ? (
           <div className={styles.coverContainer}>
-            <img 
+            <Image 
               src={book.cover_url} 
               alt={`${book.title} cover`}
+              width={300}
+              height={450}
               className={styles.cover}
+              style={{ objectFit: 'cover' }}
+              priority
             />
+          </div>
+        ) : (
+          <div className={styles.coverPlaceholder}>
+            <span className={styles.placeholderIcon}>📖</span>
           </div>
         )}
         

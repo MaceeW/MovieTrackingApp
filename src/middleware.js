@@ -8,7 +8,7 @@ export async function middleware(request) {
 
   if (isAuthPage) {
     if (isAuth) {
-      return NextResponse.redirect(new URL('/', request.url))
+      return NextResponse.redirect(new URL('/dashboard', request.url))
     }
     return null
   }
@@ -26,5 +26,5 @@ export async function middleware(request) {
 }
 
 export const config = {
-  matcher: ['/add-book', '/book/:path*/edit', '/']
+  matcher: ['/dashboard', '/add-book', '/book/:path*']
 }

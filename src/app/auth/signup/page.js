@@ -58,7 +58,6 @@ export default function SignUpPage() {
         throw new Error(data.error || 'Failed to create account')
       }
 
-      // Auto sign in after successful registration
       const result = await signIn('credentials', {
         redirect: false,
         email: formData.email,
@@ -68,7 +67,7 @@ export default function SignUpPage() {
       if (result?.error) {
         setError(result.error)
       } else {
-        router.push('/')
+        router.push('/dashboard')
         router.refresh()
       }
     } catch (err) {

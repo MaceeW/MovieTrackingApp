@@ -55,7 +55,6 @@ export async function GET(request, { params }) {
   }
 }
 
-// PUT - Update a book
 export async function PUT(request, { params }) {
   try {
     const session = await getServerSession(authOptions)
@@ -79,7 +78,6 @@ export async function PUT(request, { params }) {
     const body = await request.json()
     const { title, author, status, notes, cover_url } = body
 
-    // Validation
     if (!title || !author) {
       return NextResponse.json(
         { error: 'Title and author are required' },
@@ -138,7 +136,6 @@ export async function PUT(request, { params }) {
   }
 }
 
-// DELETE - Delete a book
 export async function DELETE(request, { params }) {
   try {
     const session = await getServerSession(authOptions)

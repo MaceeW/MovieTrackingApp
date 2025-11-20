@@ -25,7 +25,7 @@ export default function BookActions({ bookId }) {
         throw new Error('Failed to delete book')
       }
 
-      router.push('/')
+      router.push('/dashboard')
       router.refresh()
     } catch (error) {
       alert('Failed to delete book. Please try again.')

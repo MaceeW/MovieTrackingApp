@@ -27,7 +27,6 @@ export default async function EditBookPage({ params }) {
     notFound()
   }
 
-  // Check ownership
   if (book.userId !== session.user.id) {
     redirect('/')
   }

@@ -2,11 +2,13 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
 import styles from './EditBookForm.module.css'
 
 export default function EditBookForm({ book }) {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
+  const [uploading, setUploading] = useState(false)
   const [error, setError] = useState('')
   const [formData, setFormData] = useState({
     title: book.title,
@@ -22,6 +24,44 @@ export default function EditBookForm({ book }) {
       ...prev,
       [name]: value
     }))
+  }
+
+  const handleImageUpload = async (e) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    if (file.size > 5 * 1024 * 1024) {
+      setError('Image size should be less than 5MB')
+      return
+    }
+
+    setUploading(true)
+    setError('')
+
+    try {
+      const formData = new FormData()
+      formData.append('file', file)
+
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to upload image')
+      }
+
+      setFormData(prev => ({
+        ...prev,
+        cover_url: data.url
+      }))
+    } catch (err) {
+      setError(err.message)
+    } finally {
+      setUploading(false)
+    }
   }
 
   const handleSubmit = async (e) => {
@@ -44,7 +84,6 @@ export default function EditBookForm({ book }) {
         throw new Error(data.error || 'Failed to update book')
       }
 
-      // Success - redirect to book detail page
       router.push(`/book/${book.id}`)
       router.refresh()
     } catch (err) {
@@ -116,18 +155,36 @@ export default function EditBookForm({ book }) {
           </div>
 
           <div className={styles.formGroup}>
-            <label htmlFor="cover_url" className={styles.label}>
-              Cover Image URL (Optional)
+            <label htmlFor="cover_image" className={styles.label}>
+              Cover Image (Optional)
             </label>
             <input
-              type="url"
-              id="cover_url"
-              name="cover_url"
-              value={formData.cover_url}
-              onChange={handleChange}
+              type="file"
+              id="cover_image"
+              accept="image/*"
+              onChange={handleImageUpload}
               className={styles.input}
-              placeholder="https://example.com/book-cover.jpg"
+              disabled={uploading}
             />
+            {uploading && <p className={styles.uploadingText}>Uploading image...</p>}
+            {formData.cover_url && (
+              <div className={styles.imagePreview}>
+                <Image
+                  src={formData.cover_url}
+                  alt="Book cover preview"
+                  width={120}
+                  height={180}
+                  style={{ objectFit: 'cover' }}
+                />
+                <button
+                  type="button"
+                  onClick={() => setFormData(prev => ({ ...prev, cover_url: '' }))}
+                  className={styles.removeImageButton}
+                >
+                  Remove Image
+                </button>
+              </div>
+            )}
           </div>
 
           <div className={styles.formGroup}>
