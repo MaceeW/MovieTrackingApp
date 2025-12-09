@@ -1,6 +1,7 @@
-'use client'
+"use client"
 
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
+import { isValidIsbn, normalizeIsbn } from '@/lib/isbn'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import styles from './AddBook.module.css'
@@ -13,6 +14,7 @@ export default function AddBookPage() {
   const [formData, setFormData] = useState({
     title: '',
     author: '',
+    isbn: '',
     status: 'To Read',
     notes: '',
     cover_url: ''
@@ -63,6 +65,77 @@ export default function AddBookPage() {
       setUploading(false)
     }
   }
+
+  const [fetchingInfo, setFetchingInfo] = useState(false)
+  const isbnTimerRef = useRef(null)
+
+  const fetchBookInfo = async () => {
+    const { isbn, title, author } = formData
+    if (!isbn && !title && !author) {
+      setError('Provide ISBN or title/author to fetch info')
+      return
+    }
+
+    // If ISBN present, validate checksum before fetching
+    if (isbn) {
+      const norm = normalizeIsbn(isbn)
+      if (!(isValidIsbn(norm))) {
+        setError('ISBN appears invalid — check digits')
+        return
+      }
+    }
+
+    setFetchingInfo(true)
+    setError('')
+
+    try {
+      const res = await fetch('/api/book-info', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ isbn: isbn || undefined, title: title || undefined, author: author || undefined })
+      })
+      const payload = await res.json()
+      if (!res.ok || !payload.success) {
+        throw new Error(payload.error || 'Failed to fetch book info')
+      }
+      const info = payload.data || {}
+      setFormData(prev => ({
+        ...prev,
+        title: info.title || prev.title,
+        author: (info.authors && info.authors[0]) || prev.author,
+        cover_url: info.coverUrl || prev.cover_url,
+        notes: prev.notes || (info.description || '')
+      }))
+    } catch (err) {
+      setError(err.message)
+    } finally {
+      setFetchingInfo(false)
+    }
+  }
+
+  useEffect(() => {
+    // Auto-fetch when ISBN looks complete (10 or 13 digits). Debounced to avoid requests while typing.
+    const raw = formData.isbn || ''
+    const digits = raw.replace(/[^0-9Xx]/g, '')
+    if (digits.length === 10 || digits.length === 13) {
+      if (isbnTimerRef.current) clearTimeout(isbnTimerRef.current)
+      isbnTimerRef.current = setTimeout(() => {
+        fetchBookInfo()
+      }, 600)
+    } else {
+      if (isbnTimerRef.current) {
+        clearTimeout(isbnTimerRef.current)
+        isbnTimerRef.current = null
+      }
+    }
+
+    return () => {
+      if (isbnTimerRef.current) {
+        clearTimeout(isbnTimerRef.current)
+        isbnTimerRef.current = null
+      }
+    }
+  }, [formData.isbn])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -121,6 +194,31 @@ export default function AddBookPage() {
             />
           </div>
 
+          <div className={styles.formGroup}>
+            <label htmlFor="isbn" className={styles.label}>
+              ISBN
+            </label>
+            <div style={{ display: 'flex', gap: 8 }}>
+              <input
+                type="text"
+                id="isbn"
+                name="isbn"
+                value={formData.isbn}
+                onChange={handleChange}
+                className={styles.input}
+                placeholder="Enter ISBN (optional)"
+              />
+              <button
+                type="button"
+                onClick={fetchBookInfo}
+                disabled={fetchingInfo}
+                className={styles.submitButton}
+                style={{ padding: '8px 12px', height: '40px' }}
+              >
+                {fetchingInfo ? 'Fetching...' : 'Auto-fill'}
+              </button>
+            </div>
+          </div>
           <div className={styles.formGroup}>
             <label htmlFor="author" className={styles.label}>
               Author *
