@@ -15,27 +15,24 @@ export default function BookList({ books: initialBooks }) {
     'Finished': '#28a745'
   }
 
-  if (books.length === 0) {
-    return (
-      <div className={styles.emptyState}>
-        <div className={styles.emptyIcon}>📚</div>
-        <h2 className={styles.emptyTitle}>No books yet</h2>
-        <p className={styles.emptyText}>
-          Start building your reading list by adding your first book!
-        </p>
-        <Link href="/add-book" className={styles.addButton}>
-          Add Your First Book
-        </Link>
-      </div>
-    )
-  }
-
   return (
     <>
       <Filters />
       
-      <div className={styles.grid}>
-        {books.map((book) => (
+      {books.length === 0 ? (
+        <div className={styles.emptyState}>
+          <div className={styles.emptyIcon}>📚</div>
+          <h2 className={styles.emptyTitle}>No books found</h2>
+          <p className={styles.emptyText}>
+            Try adjusting your filters or search terms, or add a new book to your library.
+          </p>
+          <Link href="/add-book" className={styles.addButton}>
+            Add a Book
+          </Link>
+        </div>
+      ) : (
+        <div className={styles.grid}>
+          {books.map((book) => (
           <Link href={`/book/${book.id}`} key={book.id} className={styles.card}>
             {book.cover_url ? (
               <div className={styles.coverContainer}>
@@ -67,8 +64,9 @@ export default function BookList({ books: initialBooks }) {
               </div>
             </div>
           </Link>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </>
   )
 }
