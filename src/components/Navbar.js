@@ -11,7 +11,7 @@ export default function Navbar() {
     <nav className={styles.navbar}>
       <div className={styles.container}>
         <Link href={session ? "/dashboard" : "/"} className={styles.logo}>
-          📖 Reading Tracker
+          🎬 Movie Tracker
         </Link>
 
         <div className={styles.navLinks}>
@@ -20,10 +20,10 @@ export default function Navbar() {
           ) : session ? (
             <>
               <Link href="/dashboard" className={styles.link}>
-                My Books
+                My Movies
               </Link>
-              <Link href="/add-book" className={styles.link}>
-                Add Book
+              <Link href="/add-movie" className={styles.link}>
+                Add Movie
               </Link>
               <span className={styles.email}>{session.user?.email}</span>
               <button

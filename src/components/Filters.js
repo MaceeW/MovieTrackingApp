@@ -56,7 +56,7 @@ export default function Filters() {
           value={search}
           onChange={handleSearchChange}
           onKeyPress={handleSearchKeyPress}
-          placeholder="Search by title or author..."
+          placeholder="Search by title or director..."
           className={styles.searchInput}
         />
       </div>
@@ -71,10 +71,10 @@ export default function Filters() {
           onChange={handleStatusChange}
           className={styles.select}
         >
-          <option value="all">All Books</option>
-          <option value="To Read">To Read</option>
-          <option value="Reading">Reading</option>
-          <option value="Finished">Finished</option>
+          <option value="all">All Movies</option>
+          <option value="To Watch">To Watch</option>
+          <option value="Watching">Watching</option>
+          <option value="Watched">Watched</option>
         </select>
       </div>
     </div>

@@ -11,21 +11,26 @@ model User {
   id        String   @id @default(cuid())
   email     String   @unique
   password  String?
-  books     Book[]   // Relation to Book model
+  movies    Movie[]  // Relation to Movie model
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-// Book model stores reading list items
-model Book {
-  id        Int      @id @default(autoincrement())
-  title     String
-  author    String
-  status    String   @default("To Read") // Reading status: "To Read", "Reading", "Finished"
-  cover_url String?  // Optional book cover image URL
-  notes     String?  // Personal notes about the book
-  userId    String   // Foreign key - links book to specific user for data privacy
-  user      User     @relation(fields: [userId], references: [id])
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+// Movie model stores movie tracking items
+model Movie {
+  id          Int      @id @default(autoincrement())
+  title       String
+  director    String?
+  releaseYear Int?
+  genre       String?
+  runtime     Int?     // Runtime in minutes
+  tmdbId      String?  // TMDb API movie ID
+  status      String   @default("To Watch") // Watching status: "To Watch", "Watching", "Watched"
+  poster_url  String?  // Movie poster image URL
+  rating      Float?   // User's personal rating (0-10)
+  notes       String?  // Personal notes about the movie
+  userId      String   // Foreign key - links movie to specific user for data privacy
+  user        User     @relation(fields: [userId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }

@@ -16,10 +16,10 @@ export default async function Home() {
       <div className={styles.hero}>
         <div className={styles.heroContent}>
           <h1 className={styles.heroTitle}>
-            📖 Track Your Reading 
+            🎬 Track Your Movies 
           </h1>
           <p className={styles.heroSubtitle}>
-            Organize your books and track your reading progress
+            Organize your watchlist and track your movie viewing journey
           </p>
           <div className={styles.ctaButtons}>
             <Link href="/auth/signup" className={styles.primaryButton}>
@@ -33,22 +33,22 @@ export default async function Home() {
       </div>
 
       <div className={styles.features}>
-        <h2 className={styles.featuresTitle}>Everything You Need to Track Your Reading</h2>
+        <h2 className={styles.featuresTitle}>Everything You Need to Track Your Movies</h2>
         
         <div className={styles.featureGrid}>
           <div className={styles.featureCard}>
-            <div className={styles.featureIcon}>📖</div>
-            <h3 className={styles.featureTitle}>Organize Your Library</h3>
+            <div className={styles.featureIcon}>🎬</div>
+            <h3 className={styles.featureTitle}>Organize Your Watchlist</h3>
             <p className={styles.featureDescription}>
-              Add books with cover images, author details, and personal notes. Keep all your reading in one place.
+              Add movies with posters, director details, and personal ratings. Keep all your movies in one place.
             </p>
           </div>
 
           <div className={styles.featureCard}>
             <div className={styles.featureIcon}>✅</div>
-            <h3 className={styles.featureTitle}>Track Reading Status</h3>
+            <h3 className={styles.featureTitle}>Track Watch Status</h3>
             <p className={styles.featureDescription}>
-              Mark books as "To Read", "Reading", or "Finished". Always know what's next on your list.
+              Mark movies as "To Watch", "Watching", or "Watched". Always know what's next on your list.
             </p>
           </div>
 
@@ -56,23 +56,23 @@ export default async function Home() {
             <div className={styles.featureIcon}>🔍</div>
             <h3 className={styles.featureTitle}>Search & Filter</h3>
             <p className={styles.featureDescription}>
-              Quickly find any book by title or author. Filter by reading status to focus on what matters.
+              Quickly find any movie by title or director. Filter by watch status to focus on what matters.
             </p>
           </div>
 
           <div className={styles.featureCard}>
             <div className={styles.featureIcon}>📝</div>
-            <h3 className={styles.featureTitle}>Add Personal Notes</h3>
+            <h3 className={styles.featureTitle}>Add Personal Reviews</h3>
             <p className={styles.featureDescription}>
-              Write reviews, thoughts, and reflections. Remember why each book was meaningful to you.
+              Write reviews, rate movies, and add your thoughts. Remember why each movie was special to you.
             </p>
           </div>
 
           <div className={styles.featureCard}>
             <div className={styles.featureIcon}>🖼️</div>
-            <h3 className={styles.featureTitle}>Beautiful Cover Images</h3>
+            <h3 className={styles.featureTitle}>Beautiful Movie Posters</h3>
             <p className={styles.featureDescription}>
-              Upload cover images to make your library visually appealing and easy to browse.
+              Automatically fetch posters from TMDb or upload your own to make your library visually appealing.
             </p>
           </div>
 
@@ -80,7 +80,7 @@ export default async function Home() {
             <div className={styles.featureIcon}>🔒</div>
             <h3 className={styles.featureTitle}>Private & Secure</h3>
             <p className={styles.featureDescription}>
-              Your reading list is completely private. Only you can see and manage your books.
+              Your watchlist is completely private. Only you can see and manage your movies.
             </p>
           </div>
         </div>
@@ -99,9 +99,9 @@ export default async function Home() {
 
           <div className={styles.step}>
             <div className={styles.stepNumber}>2</div>
-            <h3 className={styles.stepTitle}>Add Your Books</h3>
+            <h3 className={styles.stepTitle}>Add Your Movies</h3>
             <p className={styles.stepDescription}>
-              Start adding books with titles, authors, cover images, and notes.
+              Search movies from TMDb database or manually add with details and posters.
             </p>
           </div>
 
@@ -109,7 +109,7 @@ export default async function Home() {
             <div className={styles.stepNumber}>3</div>
             <h3 className={styles.stepTitle}>Track Your Progress</h3>
             <p className={styles.stepDescription}>
-              Update reading status as you go and build your personal library.
+              Update watch status as you go and build your personal movie collection.
             </p>
           </div>
         </div>
@@ -118,7 +118,7 @@ export default async function Home() {
       <div className={styles.cta}>
         <h2 className={styles.ctaTitle}>Ready to Start Tracking?</h2>
         <p className={styles.ctaText}>
-          Join readers who are organizing their reading journey with Reading Tracker.
+          Join movie enthusiasts who are organizing their viewing journey with Movie Tracker.
         </p>
         <Link href="/auth/signup" className={styles.ctaButton}>
           Create Your Free Account
