@@ -1,33 +1,35 @@
 .navbar {
-  background: #8b6f47;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  background: rgba(15, 12, 41, 0.85);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
   position: sticky;
   top: 0;
   z-index: 100;
-  border-bottom: 4px solid #3d2e23;
+  border-bottom: 1px solid rgba(230, 57, 70, 0.3);
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 1rem 1.5rem;
+  padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .logo {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #f5e6d3;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #ffffff;
   text-decoration: none;
-  transition: color 0.2s;
-  font-family: 'Georgia', serif;
-  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  letter-spacing: 0.5px;
+  text-shadow: 0 0 20px rgba(230, 57, 70, 0.5);
 }
 
 .logo:hover {
-  color: #d4a574;
+  color: #e63946;
+  text-shadow: 0 0 30px rgba(230, 57, 70, 0.8);
 }
 
 .navLinks {
@@ -37,56 +39,69 @@
 }
 
 .link {
-  color: #f5e6d3;
+  color: #e8e8e8;
   text-decoration: none;
   font-weight: 500;
-  transition: color 0.2s;
-  font-family: 'Georgia', serif;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background: #e63946;
+  transition: width 0.3s ease;
 }
 
 .link:hover {
-  color: #d4a574;
+  color: #e63946;
+}
+
+.link:hover::after {
+  width: 100%;
 }
 
 .linkButton {
-  padding: 0.5rem 1rem;
-  background: #d4a574;
-  color: #2d1f14;
+  padding: 0.6rem 1.5rem;
+  background: linear-gradient(135deg, #e63946 0%, #f77f00 100%);
+  color: #ffffff;
   text-decoration: none;
-  border-radius: 0;
-  border: 1px solid #2d1f14;
+  border-radius: 8px;
+  border: none;
   font-weight: 600;
-  transition: all 0.2s;
-  font-family: 'Georgia', serif;
-  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(230, 57, 70, 0.4);
 }
 
 .linkButton:hover {
-  transform: translate(1px, 1px);
-  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(230, 57, 70, 0.6);
 }
 
 .email {
-  color: #f5e6d3;
+  color: #a8a8a8;
   font-size: 0.9rem;
-  font-family: 'Georgia', serif;
 }
 
 .signOutButton {
-  padding: 0.5rem 1rem;
-  background: #d4a574;
-  color: #2d1f14;
-  border: 1px solid #f5e6d3;
-  border-radius: 0;
+  padding: 0.6rem 1.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s;
-  font-family: 'Georgia', serif;
-  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
 }
 
 .signOutButton:hover {
-  background: #c99563;
+  background: rgba(230, 57, 70, 0.2);
+  border-color: #e63946;
 }
 
 @media (max-width: 768px) {

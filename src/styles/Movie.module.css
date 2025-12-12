@@ -1,124 +1,166 @@
 .container {
-  max-width: 900px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem 1rem;
+  padding: 3rem 2rem;
 }
 
-.bookCard {
-  background: #f0e7d8;
-  border-radius: 0;
-  padding: 2rem;
-  border: 3px solid #8b6f47;
-  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.1);
+.movieCard {
+  background: rgba(30, 30, 60, 0.5);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 3rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 3rem;
 }
 
-.coverContainer {
-  text-align: center;
-  margin-bottom: 2rem;
+.posterContainer {
+  width: 100%;
 }
 
-.cover {
-  max-width: 300px;
-  max-height: 400px;
-  border-radius: 0;
-  border: 3px solid #8b6f47;
-  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.15);
+.poster {
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+  transition: transform 0.3s ease;
+}
+
+.poster:hover {
+  transform: scale(1.02);
 }
 
 .content {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
 .header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
 .title {
-  font-size: 2rem;
-  font-weight: bold;
-  color: #3d2e23;
+  font-size: 2.75rem;
+  font-weight: 700;
+  color: #ffffff;
   flex: 1;
-  font-family: 'Georgia', serif;
+  line-height: 1.2;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 }
 
-.author {
-  font-size: 1.25rem;
-  color: #5d4e43;
-  font-style: italic;
-  font-family: 'Georgia', serif;
+.director {
+  font-size: 1.35rem;
+  color: #a8a8a8;
+  font-weight: 500;
+}
+
+.metadata {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  padding: 1.25rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.metaItem {
+  color: #a8a8a8;
+  font-size: 1rem;
+  font-weight: 500;
 }
 
 .statusContainer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
   margin: 0.5rem 0;
 }
 
 .status {
   display: inline-block;
-  padding: 0.5rem 1rem;
+  padding: 0.6rem 1.25rem;
   border-radius: 20px;
   color: white;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.rating {
+  color: #ffd700;
+  font-weight: 700;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
 }
 
 .notesSection {
-  margin-top: 1.5rem;
-  padding: 1.5rem;
-  background-color: #e8dcc4;
-  border-radius: 0;
-  border-left: 4px solid #8b6f47;
-  border: 3px solid #8b6f47;
-  border-left: 8px solid #8b6f47;
+  margin-top: 1rem;
+  padding: 1.75rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border-left: 4px solid #e63946;
 }
 
 .notesTitle {
-  font-size: 1.25rem;
+  font-size: 1.35rem;
   font-weight: 600;
-  color: #3d2e23;
-  margin-bottom: 0.75rem;
-  font-family: 'Georgia', serif;
+  color: #ffffff;
+  margin-bottom: 1rem;
 }
 
 .notes {
-  color: #3d2e23;
-  line-height: 1.6;
+  color: #c8c8c8;
+  line-height: 1.8;
   white-space: pre-wrap;
-  font-family: 'Georgia', serif;
+  font-size: 1.05rem;
 }
 
-.metadata {
-  margin-top: 1.5rem;
+.dateMetadata {
+  margin-top: auto;
   padding-top: 1.5rem;
-  border-top: 2px solid #8b6f47;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
   gap: 2rem;
 }
 
 .date {
-  color: #5d4e43;
+  color: #8b8b8b;
   font-size: 0.9rem;
-  font-family: 'Georgia', serif;
 }
 
-.coverPlaceholder {
-  width: 300px;
-  height: 450px;
-  margin: 0 auto 2rem;
-  background: linear-gradient(135deg, #8b6f47 0%, #5d4e43 100%);
+.posterPlaceholder {
+  width: 100%;
+  aspect-ratio: 2/3;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 0;
-  border: 3px solid #8b6f47;
-  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.15);
+  border-radius: 16px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
 }
 
 .placeholderIcon {
   font-size: 6rem;
-  filter: brightness(1.2);
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+}
+
+@media (max-width: 968px) {
+  .movieCard {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .posterContainer {
+    max-width: 400px;
+    margin: 0 auto;
+  }
 }
